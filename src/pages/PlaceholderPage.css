@@ -1,0 +1,14 @@
+.placeholder-page {
+  flex: 1;
+  padding: 3rem 0;
+}
+
+.placeholder-page__title {
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+
+.placeholder-page__text {
+  color: var(--text-muted);
+  font-size: 1.125rem;
+}

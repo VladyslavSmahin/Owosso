@@ -1,0 +1,50 @@
+.popular-links {
+  padding: 1.5rem 0;
+}
+
+.popular-links__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: var(--text);
+  text-align: center;
+}
+
+.popular-links__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.popular-links__link {
+  display: inline-block;
+  position: relative;
+  padding: 0.5rem 0;
+  font-size: 0.9375rem;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+.popular-links__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.35rem;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.popular-links__link:hover {
+  color: var(--accent);
+}
+
+.popular-links__link:hover::after {
+  transform: scaleX(1);
+}

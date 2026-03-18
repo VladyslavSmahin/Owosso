@@ -1,0 +1,135 @@
+.footer {
+  margin-top: auto;
+  padding: 1.25rem 0;
+  background: #1e293b;
+  color: var(--block-dark-text);
+}
+
+.footer__brand {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--block-dark-text);
+  text-align: center;
+  margin: 0 0 1rem;
+}
+
+.footer__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  justify-items: center;
+}
+
+.footer__col {
+  min-width: 0;
+}
+
+.footer__col--contact {
+  justify-self: start;
+}
+
+.footer__col--copy {
+  justify-self: end;
+  text-align: right;
+}
+
+.footer__address {
+  font-style: normal;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 0.5rem;
+}
+
+.footer__address a {
+  color: var(--accent-teal, #2dd4bf);
+  text-decoration: none;
+}
+.footer__address a:hover {
+  text-decoration: underline;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  font-size: 0.8125rem;
+}
+
+.footer__links a {
+  color: var(--accent-teal, #2dd4bf);
+  text-decoration: none;
+}
+.footer__links a:hover {
+  text-decoration: underline;
+}
+
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  justify-content: center;
+}
+
+.footer__nav-link {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+}
+.footer__nav-link:hover {
+  color: var(--accent-teal, #2dd4bf);
+}
+
+.footer__col--copy {
+  text-align: right;
+}
+
+.footer__copyright,
+.footer__credit {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 0.25rem;
+}
+
+.footer__credit a {
+  color: var(--accent-teal, #2dd4bf);
+  text-decoration: none;
+}
+.footer__credit a:hover {
+  text-decoration: underline;
+}
+
+.footer__login {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+}
+.footer__login:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+  .footer__row {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  .footer__col--nav {
+    order: -1;
+  }
+
+  .footer__nav {
+    justify-content: center;
+  }
+
+  .footer__col--copy {
+    text-align: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+}
