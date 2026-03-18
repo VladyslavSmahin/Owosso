@@ -31,7 +31,6 @@ export default function NewsletterForm() {
           <h2 id="newsletter-title" className="newsletter-form__title">
             Subscribe to the City of Owosso Newsletter.
           </h2>
-          <span className="newsletter-form__required-note">* indicates required</span>
         </div>
 
         <div className="newsletter-form__row">
