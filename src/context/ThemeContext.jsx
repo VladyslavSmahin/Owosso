@@ -4,7 +4,10 @@ const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
   const [theme, setThemeState] = useState(() => {
-    return localStorage.getItem('owosso-theme') || 'light';
+    const saved = localStorage.getItem('owosso-theme');
+    if (saved) return saved;
+    const hour = new Date().getHours();
+    return hour >= 17 ? 'dark' : 'light';
   });
 
   useEffect(() => {

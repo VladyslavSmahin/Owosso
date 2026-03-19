@@ -37,8 +37,69 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   padding: 2rem;
+}
+
+.splash__icon {
+  color: var(--accent);
+  line-height: 0;
+}
+
+.splash__sky {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 72px;
+  height: 48px;
+}
+
+.splash__sun {
+  color: #f59e0b;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme="dark"] .splash__sun {
+  color: #fbbf24;
+}
+
+.splash__cloud {
+  color: rgba(148, 163, 184, 0.9);
+  animation: splash-cloud 8s ease-in-out infinite;
+  position: absolute;
+  z-index: 2;
+}
+
+[data-theme="dark"] .splash__cloud {
+  color: rgba(148, 163, 184, 0.6);
+}
+
+.splash__cloud--day {
+  top: 4px;
+  left: 26px;
+}
+
+.splash__cloud--night {
+  top: 2px;
+  left: 24px;
+}
+
+@keyframes splash-cloud {
+  0%, 100% { transform: translate(0, 0); opacity: 1; }
+  25% { transform: translate(4px, -3px); opacity: 0.9; }
+  50% { transform: translate(-2px, 2px); opacity: 1; }
+  75% { transform: translate(3px, 1px); opacity: 0.95; }
+}
+
+.splash__moon {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .splash__moon {
+  color: #cbd5e1;
 }
 
 .splash__logo {
@@ -48,6 +109,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.splash__time {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.splash__greeting {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.35;
 }
 
 .splash__logo img {
@@ -66,38 +144,6 @@
 }
 .splash__logo-placeholder.visible {
   opacity: 1;
-}
-
-.splash__title {
-  min-height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.splash__svg-text {
-  width: 100%;
-  max-width: 320px;
-  height: 48px;
-  overflow: visible;
-}
-
-.splash__svg-text-inner {
-  font-family: var(--font-script), cursive;
-  font-size: 2.25rem;
-  font-weight: 500;
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.2;
-  stroke-dasharray: 320;
-  stroke-dashoffset: 320;
-  animation: splash-draw 1.4s ease-out 0.3s forwards;
-}
-
-@keyframes splash-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
 }
 
 .splash__loader {
@@ -123,8 +169,8 @@
 }
 
 @media (max-width: 480px) {
-  .splash__svg-text-inner {
-    font-size: 1.75rem;
+  .splash__greeting {
+    font-size: 1rem;
   }
   .splash__loader {
     width: 160px;
