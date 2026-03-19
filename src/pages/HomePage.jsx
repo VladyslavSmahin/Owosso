@@ -75,6 +75,7 @@ export default function HomePage() {
           <NewsBlock />
         </div>
         <div className="home-page__map-zone">
+          <div className="home-page__map-sticky-stack">
           <div
             className={`home-page__map-viewport ${addPlaceMode ? 'home-page__map-viewport--fullscreen' : ''}`}
             aria-hidden="true"
@@ -168,21 +169,25 @@ export default function HomePage() {
             </div>
           )}
           <div className="home-page__map-content">
-            <div className="home-page__map-caption-block">
-              <button
-                type="button"
-                className="home-page__map-caption home-page__map-caption--clickable"
-                onClick={() => setAddPlaceMode(true)}
-                aria-label="Suggest your photo for the city map — click here"
-              >
-                Suggest your photo for the city map — click here
-              </button>
+            <div className="home-page__map-content-inner">
+              <div className="home-page__map-caption-block">
+                <p className="home-page__map-caption-text">
+                  Suggest your photo for the city map —{' '}
+                  <button
+                    type="button"
+                    className="home-page__map-caption-btn"
+                    onClick={() => setAddPlaceMode(true)}
+                    aria-label="Open map to add your photo"
+                  >
+                    click here
+                  </button>
+                </p>
               <p className="home-page__map-caption-hint">
                 The map will open full screen. Click on the map where you want to add a spot—a window will open with a description field and an “Upload photo” button.
               </p>
-            </div>
-            <section className="home-page__dashboard-bg" aria-label="Dashboard and Calendar">
-              <div className="app-container home-page__dashboard-inner">
+              </div>
+              <section className="home-page__dashboard-bg" aria-label="Dashboard and Calendar">
+                <div className="home-page__dashboard-inner">
                 <div className="home-page__dashboard-row">
                   <div className="home-page__dashboard-col home-page__dashboard-col--70">
                     <DashboardBlock />
@@ -190,12 +195,16 @@ export default function HomePage() {
                   <div className="home-page__dashboard-col home-page__dashboard-col--30">
                     <CommunityCalendar />
                   </div>
+                  </div>
                 </div>
+              </section>
+              <div className="home-page__content home-page__map-content-form">
+                <NewsletterForm />
               </div>
-            </section>
-            <div className="app-container home-page__content">
-              <NewsletterForm />
             </div>
+          </div>
+          </div>
+          <div className="home-page__map-footer-slot">
             <Footer />
           </div>
         </div>

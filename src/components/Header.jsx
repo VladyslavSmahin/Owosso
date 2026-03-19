@@ -36,7 +36,6 @@ export default function Header() {
             <address className="header__contact">
               <span>301 W. Main Street</span>
               <span>Owosso, MI 48867</span>
-              <a href="tel:+19897250599">(989) 725-0599</a>
             </address>
           </div>
         </div>

@@ -39,6 +39,7 @@
 }
 .header__nav-link:hover {
   color: var(--nav-active);
+  text-decoration: underline;
 }
 .header__nav-link--top {
   color: var(--text);

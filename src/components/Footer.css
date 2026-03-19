@@ -80,6 +80,7 @@
 }
 .footer__nav-link:hover {
   color: var(--accent-teal, #2dd4bf);
+  text-decoration: underline;
 }
 
 .footer__col--copy {
@@ -110,6 +111,7 @@
 }
 .footer__login:hover {
   color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {

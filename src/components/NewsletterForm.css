@@ -180,6 +180,9 @@
 .newsletter-form__checkbox-wrap:hover .newsletter-form__checkbox-box {
   border-color: var(--accent);
 }
+.newsletter-form__checkbox-wrap:hover {
+  text-decoration: underline;
+}
 
 .newsletter-form__checkbox-label {
   user-select: none;
@@ -203,6 +206,7 @@
 .newsletter-form__submit:hover {
   background: var(--accent-hover);
   border-color: var(--accent-hover);
+  text-decoration: underline;
 }
 
 .newsletter-form__submit:focus-visible {

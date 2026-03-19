@@ -57,4 +57,5 @@
 
 .dashboard-block__link:hover {
   color: var(--accent-hover);
+  text-decoration: underline;
 }

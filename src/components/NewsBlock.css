@@ -43,6 +43,7 @@
 }
 .news-block__view-all:hover {
   color: var(--accent-hover);
+  text-decoration: underline;
 }
 
 .news-block__grid-wrap {
@@ -147,6 +148,7 @@
 .news-block__page-btn:hover:not(:disabled) {
   border-color: var(--accent);
   background: var(--accent-soft);
+  text-decoration: underline;
 }
 .news-block__page-btn:disabled {
   opacity: 0.5;
@@ -171,6 +173,7 @@
   border-color: var(--accent);
   box-shadow: var(--shadow-lg);
   transform: translateY(-1px);
+  text-decoration: underline;
 }
 
 .news-item__date {

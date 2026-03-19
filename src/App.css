@@ -4,3 +4,21 @@
   flex-direction: column;
   transition: opacity 0.5s ease;
 }
+
+/* Хедер + нав закреплены вместе, при скролле отступы уменьшаются в два раза */
+.app-header-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.app-header-wrap--scrolled .header__top {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+.app-header-wrap--scrolled .main-nav__inner {
+  min-height: 36px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}

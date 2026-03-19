@@ -81,6 +81,23 @@
   position: relative;
 }
 
+/* Ограничивает область sticky-карты: после этого блока фото уезжает вместе со скроллом, футер отдельно */
+.home-page__map-sticky-stack {
+  position: relative;
+}
+
+/* Небольшой зазор и фон страницы между зоной с фото и футером */
+.home-page__map-footer-slot {
+  position: relative;
+  z-index: 2;
+  background: var(--bg);
+  background-image: linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
+}
+
+[data-theme="dark"] .home-page__map-footer-slot {
+  background-image: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
 .home-page__map-zone::before {
   content: '';
   position: absolute;
@@ -128,31 +145,35 @@
   }
 }
 
-.home-page__map-caption {
+.home-page__map-caption-text {
   margin: 0;
-  padding: 0;
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 600;
   color: var(--text);
-  background: none;
-  border: none;
-  border-radius: 0;
   text-align: center;
-  width: 100%;
+}
+
+.home-page__map-caption-btn {
+  display: inline-block;
+  margin-left: 0.25rem;
+  padding: 0.4rem 1rem;
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: color 0.2s, opacity 0.2s;
+  transition: background 0.2s, border-color 0.2s;
+  vertical-align: baseline;
 }
 
-.home-page__map-caption--clickable {
-  transform: scale(1);
-  transition: color 0.2s, opacity 0.2s, transform 0.2s ease;
-}
-
-.home-page__map-caption--clickable:hover {
-  color: var(--accent);
-  opacity: 0.9;
-  transform: scale(1.1);
+.home-page__map-caption-btn:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  text-decoration: underline;
 }
 
 .home-page__map-caption-hint {
@@ -252,6 +273,7 @@
 
 .home-page__add-place-upload-btn:hover {
   background: var(--accent-hover);
+  text-decoration: underline;
 }
 
 .home-page__add-place-cancel-btn {
@@ -269,6 +291,7 @@
 .home-page__add-place-cancel-btn:hover {
   color: var(--text);
   border-color: var(--text-muted);
+  text-decoration: underline;
 }
 
 /* Фото-картинка при скролле: карта с пинами */
@@ -314,6 +337,7 @@
 
 .home-page__map-close-btn:hover {
   background: #fff;
+  text-decoration: underline;
 }
 
 .home-page__map-click-surface {
@@ -376,6 +400,15 @@
   z-index: 1;
 }
 
+/* Общая ширина 1100px включительно с отступами — дашборд, календарь и форма в одной колонке */
+.home-page__map-content-inner {
+  box-sizing: border-box;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  padding-bottom: 1.5rem;
+}
+
 .home-page__dashboard-bg {
   width: 100%;
   padding-top: 2rem;
@@ -403,6 +436,9 @@
 }
 
 @media (max-width: 600px) {
+  .home-page__map-content-inner {
+    padding: 0 16px;
+  }
   .home-page {
     padding: 0 0 2rem;
   }

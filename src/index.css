@@ -70,8 +70,9 @@ body {
   flex-direction: column;
 }
 
-/* Main content container — max 1100px */
+/* Main content container — общая ширина 1100px включительно с отступами */
 .app-container {
+  box-sizing: border-box;
   width: 100%;
   max-width: var(--container-max);
   margin: 0 auto;
@@ -91,6 +92,7 @@ a {
 }
 a:hover {
   color: var(--accent-hover);
+  text-decoration: underline;
 }
 
 h1, h2, h3 {
