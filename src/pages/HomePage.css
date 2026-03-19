@@ -79,7 +79,6 @@
 /* Вариант 2: карта заходит под блок выше, сверху градиент для плавного перехода */
 .home-page__map-zone {
   position: relative;
-  margin-top: -56px;
 }
 
 .home-page__map-zone::before {
