@@ -1,33 +1,43 @@
 import { useState, useEffect } from 'react';
 import './Gallery.css';
 
-const INTERVAL_MS = 2000;
+const INTERVAL_MS = 10000;
 const MAX_SLIDES = 100;
+const EXTENSIONS = ['jpg', 'jpeg', 'webp', 'png', 'gif'];
 
-function discoverSlides(callback) {
+export function discoverSlides(callback) {
   const found = [];
-  let current = 1;
+  let currentNum = 1;
+  let currentExt = 0;
 
   function tryNext() {
-    if (current > MAX_SLIDES) {
+    if (currentNum > MAX_SLIDES) {
       callback(found);
       return;
     }
+    const ext = EXTENSIONS[currentExt];
+    const src = `/${currentNum}.${ext}`;
     const img = new Image();
-    const num = current;
+    const num = currentNum;
     img.onload = () => {
       found.push({
-        id: num,
-        src: `/${num}.jpg`,
+        id: `${num}-${ext}`,
+        src,
         alt: `Owosso ${num}`,
       });
-      current++;
+      currentNum++;
+      currentExt = 0;
       tryNext();
     };
     img.onerror = () => {
-      callback(found);
+      currentExt++;
+      if (currentExt >= EXTENSIONS.length) {
+        currentNum++;
+        currentExt = 0;
+      }
+      tryNext();
     };
-    img.src = `/${num}.jpg`;
+    img.src = src;
   }
 
   tryNext();

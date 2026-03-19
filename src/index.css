@@ -18,6 +18,7 @@
   --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-script: 'Caveat', cursive;
   --container-max: 1100px;
+  --header-nav-height: 132px;
   --radius: 12px;
   --radius-sm: 8px;
 }

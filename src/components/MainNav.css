@@ -1,6 +1,15 @@
 .main-nav {
-  background: var(--bg-elevated);
-  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 90;
+  background: rgba(255, 255, 255, 0.65);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  backdrop-filter: saturate(1.2) blur(12px);
+  -webkit-backdrop-filter: saturate(1.2) blur(12px);
+}
+
+[data-theme="dark"] .main-nav {
+  background: rgba(15, 23, 42, 0.65);
+  border-bottom-color: rgba(51, 65, 85, 0.6);
 }
 
 .main-nav__inner {
@@ -9,7 +18,7 @@
   padding: 0 24px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 0 2rem;
   min-height: 48px;
@@ -44,22 +53,24 @@
   padding-right: 0.25rem;
 }
 
-/* Dropdown panel — выезжает сверху после окрашивания пункта */
+/* Dropdown panel — строго под навбаром, зазор чтобы не налазил */
 .main-nav__dropdown {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 14px);
   left: 50%;
-  transform: translate(-50%, -12px);
+  transform: translateX(-50%);
   min-width: 280px;
   padding: 0.5rem 0;
-  background: var(--accent);
-  border-radius: 0 0 var(--radius) var(--radius);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(1.2) blur(12px);
+  -webkit-backdrop-filter: saturate(1.2) blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
-  transition-delay: 0s;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
   z-index: 100;
 }
 
@@ -67,19 +78,6 @@
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translate(-50%, 0);
-  transition-delay: 0.15s;
-}
-
-/* Сначала окрашивается пункт (быстро), потом выезжает дропдаун */
-.main-nav__item--has-dropdown .main-nav__link {
-  transition: color 0.12s ease, background 0.12s ease, border-radius 0.12s ease;
-}
-
-.main-nav__item--has-dropdown:hover .main-nav__link {
-  background: var(--accent);
-  color: #fff;
-  border-radius: var(--radius);
 }
 
 .main-nav__dropdown-inner {
@@ -98,9 +96,9 @@
   padding: 0.5rem 1rem;
   font-size: 0.8125rem;
   font-weight: 400;
-  color: #fff;
+  color: var(--text);
   text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   transition: background 0.15s ease, color 0.15s ease;
 }
 
@@ -109,28 +107,25 @@
 }
 
 .main-nav__dropdown-link:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--accent);
 }
 
-/* Тёмная тема: дропдаун и пункт — приглушённая поверхность, читаемый текст */
+/* Тёмная тема: дропдаун — блюр как нав */
 [data-theme="dark"] .main-nav__dropdown {
-  background: var(--border);
+  background: rgba(15, 23, 42, 0.82);
+  border-color: rgba(51, 65, 85, 0.6);
   box-shadow: var(--shadow-lg);
 }
 
-[data-theme="dark"] .main-nav__item--has-dropdown:hover .main-nav__link {
-  background: var(--border);
-  color: var(--text);
-}
 
 [data-theme="dark"] .main-nav__dropdown-link {
   color: var(--text);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
 }
 
 [data-theme="dark"] .main-nav__dropdown-link:hover {
-  background: var(--accent-soft);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--accent);
 }
 

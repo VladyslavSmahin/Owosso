@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import SplashScreen from './components/SplashScreen';
 import Header from './components/Header';
@@ -12,6 +12,8 @@ import './App.css';
 
 function AppContent() {
   const [splashDone, setSplashDone] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   const handleSplashComplete = useCallback(() => {
     setSplashDone(true);
@@ -23,17 +25,12 @@ function AppContent() {
       <div className="app-layout" style={{ opacity: splashDone ? 1 : 0 }}>
         <Header />
         <MainNav />
-        <section className="site-title-wrap" aria-label="Site name">
-          <div className="app-container">
-            <h1 className="site-title">City of Owosso</h1>
-          </div>
-        </section>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="*" element={<PlaceholderPage />} />
         </Routes>
-        <Footer />
+        {!isHome && <Footer />}
       </div>
     </>
   );

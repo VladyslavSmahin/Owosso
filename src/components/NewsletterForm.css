@@ -1,9 +1,16 @@
 .newsletter-form {
   margin-top: 2rem;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 232, 240, 0.7);
   box-shadow: var(--shadow);
   padding: 2rem;
+}
+
+[data-theme="dark"] .newsletter-form {
+  background: rgba(15, 23, 42, 0.5);
+  border-color: rgba(51, 65, 85, 0.7);
 }
 
 .newsletter-form__inner {

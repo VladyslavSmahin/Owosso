@@ -88,9 +88,21 @@ export default function NewsBlock() {
           >
             Previous
           </button>
-          <span className="news-block__page-info">
-            Page {page} of {TOTAL_PAGES}
-          </span>
+          <div className="news-block__pagination-center">
+            <span className="news-block__dots" role="tablist" aria-label="Pages">
+              {Array.from({ length: TOTAL_PAGES }, (_, i) => i + 1).map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  className={`news-block__dot ${p === page ? 'news-block__dot--current' : ''}`}
+                  onClick={() => goToPage(p)}
+                  disabled={isExiting}
+                  aria-label={`Page ${p}`}
+                  aria-current={p === page ? 'true' : undefined}
+                />
+              ))}
+            </span>
+          </div>
           <button
             type="button"
             className="news-block__page-btn"
