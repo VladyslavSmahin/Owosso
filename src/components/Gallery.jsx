@@ -5,6 +5,38 @@ const INTERVAL_MS = 10000;
 const MAX_SLIDES = 100;
 const EXTENSIONS = ['jpg', 'jpeg', 'webp', 'png', 'gif'];
 
+/** Последовательная предзагрузка: одна картинка за раз, после загрузки — следующая (меньше 404 и нагрузка). */
+export function preloadGallerySequential(onProgress) {
+  let num = 1;
+  let extIndex = 0;
+
+  function tryNext() {
+    if (num > MAX_SLIDES) {
+      onProgress?.({ done: true });
+      return;
+    }
+    const ext = EXTENSIONS[extIndex];
+    const src = `/${num}.${ext}`;
+    const img = new Image();
+    img.onload = () => {
+      num++;
+      extIndex = 0;
+      onProgress?.({ num: num - 1, src });
+      tryNext();
+    };
+    img.onerror = () => {
+      extIndex++;
+      if (extIndex >= EXTENSIONS.length) {
+        num++;
+        extIndex = 0;
+      }
+      tryNext();
+    };
+    img.src = src;
+  }
+  tryNext();
+}
+
 export function discoverSlides(callback) {
   const found = [];
   let currentNum = 1;

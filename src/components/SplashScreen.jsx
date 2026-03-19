@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
+import { preloadGallerySequential } from './Gallery';
 import './SplashScreen.css';
 
 export default function SplashScreen({ onComplete }) {
   const [loaderDone, setLoaderDone] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
+
+  useEffect(() => {
+    preloadGallerySequential();
+  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => setLoaderDone(true), 1800);
