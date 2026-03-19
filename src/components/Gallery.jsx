@@ -2,86 +2,49 @@ import { useState, useEffect } from 'react';
 import './Gallery.css';
 
 const INTERVAL_MS = 10000;
-const MAX_SLIDES = 100;
-const EXTENSIONS = ['jpg', 'jpeg', 'webp', 'png', 'gif'];
 
-/** Последовательная предзагрузка: одна картинка за раз, после загрузки — следующая (меньше 404 и нагрузка). */
+/** Список картинок галереи — только существующие пути, без проверки через запросы. */
+const GALLERY_SLIDES = [
+  { id: '1', src: '/1.webp', alt: 'Owosso 1' },
+  { id: '2', src: '/2.webp', alt: 'Owosso 2' },
+  { id: '3', src: '/3.webp', alt: 'Owosso 3' },
+  { id: '4', src: '/4.webp', alt: 'Owosso 4' },
+  { id: '5', src: '/5.webp', alt: 'Owosso 5' },
+  { id: '6', src: '/6.webp', alt: 'Owosso 6' },
+];
+
+/** Для HomePage (пины на карте): отдаём список синхронно. */
+export function discoverSlides(callback) {
+  callback(GALLERY_SLIDES);
+}
+
+/** Предзагрузка во время сплеша — только известные пути, по одному. */
 export function preloadGallerySequential(onProgress) {
-  let num = 1;
-  let extIndex = 0;
-
-  function tryNext() {
-    if (num > MAX_SLIDES) {
+  let i = 0;
+  function next() {
+    if (i >= GALLERY_SLIDES.length) {
       onProgress?.({ done: true });
       return;
     }
-    const ext = EXTENSIONS[extIndex];
-    const src = `/${num}.${ext}`;
+    const slide = GALLERY_SLIDES[i];
     const img = new Image();
     img.onload = () => {
-      num++;
-      extIndex = 0;
-      onProgress?.({ num: num - 1, src });
-      tryNext();
+      i++;
+      onProgress?.({ num: i, src: slide.src });
+      next();
     };
     img.onerror = () => {
-      extIndex++;
-      if (extIndex >= EXTENSIONS.length) {
-        num++;
-        extIndex = 0;
-      }
-      tryNext();
+      i++;
+      next();
     };
-    img.src = src;
+    img.src = slide.src;
   }
-  tryNext();
-}
-
-export function discoverSlides(callback) {
-  const found = [];
-  let currentNum = 1;
-  let currentExt = 0;
-
-  function tryNext() {
-    if (currentNum > MAX_SLIDES) {
-      callback(found);
-      return;
-    }
-    const ext = EXTENSIONS[currentExt];
-    const src = `/${currentNum}.${ext}`;
-    const img = new Image();
-    const num = currentNum;
-    img.onload = () => {
-      found.push({
-        id: `${num}-${ext}`,
-        src,
-        alt: `Owosso ${num}`,
-      });
-      currentNum++;
-      currentExt = 0;
-      tryNext();
-    };
-    img.onerror = () => {
-      currentExt++;
-      if (currentExt >= EXTENSIONS.length) {
-        currentNum++;
-        currentExt = 0;
-      }
-      tryNext();
-    };
-    img.src = src;
-  }
-
-  tryNext();
+  next();
 }
 
 export default function Gallery() {
-  const [slides, setSlides] = useState([]);
   const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    discoverSlides(setSlides);
-  }, []);
+  const slides = GALLERY_SLIDES;
 
   useEffect(() => {
     if (slides.length <= 1) return;
