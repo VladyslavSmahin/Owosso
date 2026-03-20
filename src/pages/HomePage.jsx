@@ -29,6 +29,7 @@ export default function HomePage() {
   const [addPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [addPlaceDescription, setAddPlaceDescription] = useState('');
   const addPlaceFileInputRef = useRef(null);
+  const mapViewportRef = useRef(null);
 
   useEffect(() => {
     discoverSlides(setGallerySlides);
@@ -56,6 +57,14 @@ export default function HomePage() {
     setAddPlaceMode(false);
   };
 
+  const handleCaptionClick = () => {
+    const el = mapViewportRef.current;
+    if (el && typeof el.scrollIntoView === 'function') {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    setAddPlaceMode(true);
+  };
+
   return (
     <main className="home-page">
       <section className="home-page__hero" aria-label="Hero">
@@ -75,52 +84,93 @@ export default function HomePage() {
           <NewsBlock />
         </div>
         <div className="home-page__map-zone">
-          <div className="home-page__map-sticky-stack">
-          <div
-            className={`home-page__map-viewport ${addPlaceMode ? 'home-page__map-viewport--fullscreen' : ''}`}
-            aria-hidden="true"
-          >
-            {addPlaceMode && (
-              <button
-                type="button"
-                className="home-page__map-close-btn"
-                onClick={closeAddPlace}
-                aria-label="Close"
+          <div className="home-page__map-stack">
+            <div className="home-page__map-content-inner">
+              <section className="home-page__dashboard-bg" aria-label="Dashboard and Calendar">
+                <div className="home-page__dashboard-inner">
+                  <div className="home-page__dashboard-row">
+                    <div className="home-page__dashboard-col home-page__dashboard-col--70">
+                      <DashboardBlock />
+                    </div>
+                    <div className="home-page__dashboard-col home-page__dashboard-col--30">
+                      <CommunityCalendar />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div
+                ref={mapViewportRef}
+                className={`home-page__map-viewport ${addPlaceMode ? 'home-page__map-viewport--add-mode' : ''}`}
+                role="region"
+                aria-label="City map with photo pins"
               >
-                Close
-              </button>
-            )}
-            <div
-              className="home-page__map-click-surface"
-              role={addPlaceMode ? 'button' : undefined}
-              tabIndex={addPlaceMode ? 0 : -1}
-              onClick={handleMapClick}
-              aria-label={addPlaceMode ? 'Click on map to place a pin' : undefined}
-              style={{ pointerEvents: addPlaceMode ? 'auto' : 'none' }}
-            />
-            <div className="home-page__map-pins">
-              {PIN_POSITIONS.map((pos, i) => (
+                {addPlaceMode && (
+                  <button
+                    type="button"
+                    className="home-page__map-close-btn"
+                    onClick={closeAddPlace}
+                    aria-label="Close"
+                  >
+                    Close
+                  </button>
+                )}
                 <div
-                  key={i}
-                  className="home-page__map-pin"
-                  style={{ left: `${pos.left}%`, top: `${pos.top}%` }}
-                  title="View photo"
-                >
-                  <span
-                    className="home-page__map-pin-drop"
-                    style={{ backgroundImage: pinImages[i]?.src ? `url(${pinImages[i].src})` : undefined }}
-                    aria-hidden="true"
-                  />
+                  className="home-page__map-click-surface"
+                  role={addPlaceMode ? 'button' : undefined}
+                  tabIndex={addPlaceMode ? 0 : -1}
+                  onClick={handleMapClick}
+                  aria-label={addPlaceMode ? 'Click on map to place a pin' : undefined}
+                  style={{ pointerEvents: addPlaceMode ? 'auto' : 'none' }}
+                />
+                <div className="home-page__map-pins">
+                  {PIN_POSITIONS.map((pos, i) => (
+                    <div
+                      key={i}
+                      className="home-page__map-pin"
+                      style={{ left: `${pos.left}%`, top: `${pos.top}%` }}
+                      title="View photo"
+                    >
+                      <span className="home-page__map-pin-drop" aria-hidden="true">
+                        {pinImages[i]?.src ? (
+                          <img
+                            src={pinImages[i].src}
+                            alt=""
+                            className="home-page__map-pin-img"
+                            draggable={false}
+                          />
+                        ) : null}
+                      </span>
+                    </div>
+                  ))}
+                  {newPinPos && (
+                    <div
+                      className="home-page__map-pin home-page__map-pin--new"
+                      style={{ left: `${newPinPos.left}%`, top: `${newPinPos.top}%` }}
+                    >
+                      <span className="home-page__map-pin-drop" aria-hidden="true" />
+                    </div>
+                  )}
                 </div>
-              ))}
-              {newPinPos && (
-                <div
-                  className="home-page__map-pin home-page__map-pin--new"
-                  style={{ left: `${newPinPos.left}%`, top: `${newPinPos.top}%` }}
-                >
-                  <span className="home-page__map-pin-drop" aria-hidden="true" />
+
+                <div className="home-page__map-caption-block">
+                  <p className="home-page__map-caption-text">
+                    Suggest your photo for the city map —{' '}
+                    <button
+                      type="button"
+                      className="home-page__map-caption-btn"
+                      onClick={handleCaptionClick}
+                      aria-label="Scroll to map and add your photo"
+                    >
+                      click here
+                    </button>
+                  </p>
                 </div>
-              )}
+              </div>
+
+              <div className="home-page__content home-page__map-content-form">
+                <NewsletterForm />
+              </div>
             </div>
           </div>
           {addPlacePopupOpen && (
@@ -168,42 +218,6 @@ export default function HomePage() {
               </div>
             </div>
           )}
-          <div className="home-page__map-content">
-            <div className="home-page__map-content-inner">
-              <div className="home-page__map-caption-block">
-                <p className="home-page__map-caption-text">
-                  Suggest your photo for the city map —{' '}
-                  <button
-                    type="button"
-                    className="home-page__map-caption-btn"
-                    onClick={() => setAddPlaceMode(true)}
-                    aria-label="Open map to add your photo"
-                  >
-                    click here
-                  </button>
-                </p>
-              <p className="home-page__map-caption-hint">
-                The map will open full screen. Click on the map where you want to add a spot—a window will open with a description field and an “Upload photo” button.
-              </p>
-              </div>
-              <section className="home-page__dashboard-bg" aria-label="Dashboard and Calendar">
-                <div className="home-page__dashboard-inner">
-                <div className="home-page__dashboard-row">
-                  <div className="home-page__dashboard-col home-page__dashboard-col--70">
-                    <DashboardBlock />
-                  </div>
-                  <div className="home-page__dashboard-col home-page__dashboard-col--30">
-                    <CommunityCalendar />
-                  </div>
-                  </div>
-                </div>
-              </section>
-              <div className="home-page__content home-page__map-content-form">
-                <NewsletterForm />
-              </div>
-            </div>
-          </div>
-          </div>
           <div className="home-page__map-footer-slot">
             <Footer />
           </div>

@@ -37,7 +37,7 @@
   transform: translate(-50%, -50%);
   margin: 0;
   font-family: var(--font-script), cursive;
-  font-size: clamp(2.25rem, 6vw, 4rem);
+  font-size: clamp(2.85rem, 7.5vw, 5.25rem);
   font-weight: 500;
   color: #fff;
   text-align: center;
@@ -74,14 +74,12 @@
   padding: 1.5rem 0 2rem;
 }
 
-/* Зона карты: липкий полноэкранный фон, поверх скроллится дашборд+календарь и форма */
-/* Вариант 2: карта заходит под блок выше, сверху градиент для плавного перехода */
+/* Зона карты: дашборд, карта с пинами (подпись внутри вьюпорта), форма */
 .home-page__map-zone {
   position: relative;
 }
 
-/* Ограничивает область sticky-карты: после этого блока фото уезжает вместе со скроллом, футер отдельно */
-.home-page__map-sticky-stack {
+.home-page__map-stack {
   position: relative;
 }
 
@@ -113,17 +111,22 @@
   background: linear-gradient(to bottom, #0f172a 0%, transparent 100%);
 }
 
-/* Один блок над дашбордом: такой же стеклянный стиль, как блок формы */
+/* Внутри вьюпорта карты, 20px от низа; поверх клик-слоя, клики не уходят на карту */
 .home-page__map-caption-block {
-  width: 100%;
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 8;
+  width: calc(100% - 32px);
   max-width: 520px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1.25rem 1.5rem;
+  margin: 0;
+  padding: 1rem 1.25rem;
   background: rgba(255, 255, 255, 0.85);
   border: 1px solid rgba(226, 232, 240, 0.7);
   border-radius: var(--radius);
   box-sizing: border-box;
+  pointer-events: auto;
 }
 @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
   .home-page__map-caption-block {
@@ -173,15 +176,6 @@
   background: var(--accent-hover);
   border-color: var(--accent-hover);
   text-decoration: underline;
-}
-
-.home-page__map-caption-hint {
-  margin: 0.6rem 0 0;
-  padding: 0;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--text-muted);
-  text-align: center;
 }
 
 /* Попап добавления места */
@@ -293,27 +287,28 @@
   text-decoration: underline;
 }
 
-/* Фото-картинка при скролле: карта с пинами */
+/* Карта с пинами — обычный блок по пропорциям изображения */
 .home-page__map-viewport {
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100vh;
+  position: relative;
+  width: 100%;
+  margin: 0 0 1.75rem;
+  aspect-ratio: 877 / 702;
   background-color: var(--bg);
   background-image: url(/image.png);
-  background-size: 100% auto;
+  background-size: 100% 100%;
   background-position: center center;
   background-repeat: no-repeat;
+  overflow: hidden;
   z-index: 0;
+  scroll-margin-top: calc(var(--header-nav-height, 120px) + 1rem);
+  scroll-margin-bottom: 2rem;
 }
 
-.home-page__map-viewport--fullscreen {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  height: 100vh;
-  height: 100dvh;
+/* Режим добавления точки: подсветка, карта остаётся в потоке страницы */
+.home-page__map-viewport--add-mode {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.25);
 }
 
 .home-page__map-close-btn {
@@ -355,7 +350,6 @@
 
 .home-page__map-pin--new .home-page__map-pin-drop {
   background-color: var(--accent);
-  border-color: #fff;
 }
 
 .home-page__map-pin {
@@ -375,28 +369,33 @@
   transform: translate(-50%, -100%) scale(1.12);
 }
 
-/* Форма пина как перевёрнутая капля (как в навигаторе на карте) */
+/* Форма пина как перевёрнутая капля (как в навигаторе на карте).
+   Без border — иначе между фото и обводкой видны «белые» полосы.
+   Объём даёт filter: drop-shadow на .home-page__map-pin */
 .home-page__map-pin-drop {
   display: block;
+  position: relative;
+  overflow: hidden;
   width: 48px;
   height: 56px;
   background-color: var(--accent);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   clip-path: path('M24 0 C10.8 0 0 10.8 0 24 C0 37.2 24 56 24 56 C24 56 48 37.2 48 24 C48 10.8 37.2 0 24 0 Z');
   -webkit-clip-path: path('M24 0 C10.8 0 0 10.8 0 24 C0 37.2 24 56 24 56 C24 56 48 37.2 48 24 C48 10.8 37.2 0 24 0 Z');
-  border: 2px solid rgba(255, 255, 255, 0.9);
   box-sizing: border-box;
 }
 
-[data-theme="dark"] .home-page__map-pin-drop {
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-.home-page__map-content {
-  position: relative;
-  z-index: 1;
+/* Фото крупнее пина — заполняет каплю целиком, без полос по кругу */
+.home-page__map-pin-img {
+  position: absolute;
+  left: 50%;
+  top: 28%;
+  width: 220%;
+  height: 220%;
+  max-width: none;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
 }
 
 /* Общая ширина 1100px включительно с отступами — дашборд, календарь и форма в одной колонке */
@@ -419,7 +418,7 @@
 
 .home-page__dashboard-row {
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: minmax(0, 65%) minmax(0, 35%);
   gap: 1.5rem;
   align-items: stretch;
 }

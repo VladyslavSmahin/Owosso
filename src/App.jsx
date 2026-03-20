@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import SplashScreen from './components/SplashScreen';
@@ -10,11 +10,8 @@ import CalendarPage from './pages/CalendarPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 import './App.css';
 
-const SCROLL_THRESHOLD = 50;
-
 function AppContent() {
   const [splashDone, setSplashDone] = useState(false);
-  const [headerScrolled, setHeaderScrolled] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === '/';
 
@@ -22,18 +19,11 @@ function AppContent() {
     setSplashDone(true);
   }, []);
 
-  useEffect(() => {
-    const onScroll = () => setHeaderScrolled(window.scrollY > SCROLL_THRESHOLD);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
     <>
       {!splashDone && <SplashScreen onComplete={handleSplashComplete} />}
       <div className="app-layout" style={{ opacity: splashDone ? 1 : 0 }}>
-        <div className={`app-header-wrap ${headerScrolled ? 'app-header-wrap--scrolled' : ''}`}>
+        <div className="app-header-wrap">
           <Header />
           <MainNav />
         </div>

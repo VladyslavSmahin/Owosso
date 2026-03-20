@@ -1,5 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { getPaginationItems, PAGINATION_ELLIPSIS } from '../utils/paginationItems';
 import './NewsBlock.css';
 
 const ITEMS_PER_PAGE = 6;
@@ -53,6 +54,10 @@ export default function NewsBlock() {
 
   const start = (page - 1) * ITEMS_PER_PAGE;
   const pageItems = NEWS_ITEMS.slice(start, start + ITEMS_PER_PAGE);
+  const paginationItems = useMemo(
+    () => getPaginationItems(page, TOTAL_PAGES),
+    [page],
+  );
 
   return (
     <section className="news-block" aria-label="News and announcements">
@@ -89,18 +94,30 @@ export default function NewsBlock() {
             Previous
           </button>
           <div className="news-block__pagination-center">
-            <span className="news-block__dots" role="tablist" aria-label="Pages">
-              {Array.from({ length: TOTAL_PAGES }, (_, i) => i + 1).map((p) => (
-                <button
-                  key={p}
-                  type="button"
-                  className={`news-block__dot ${p === page ? 'news-block__dot--current' : ''}`}
-                  onClick={() => goToPage(p)}
-                  disabled={isExiting}
-                  aria-label={`Page ${p}`}
-                  aria-current={p === page ? 'true' : undefined}
-                />
-              ))}
+            <span className="news-block__pages" role="group" aria-label="Pages">
+              {paginationItems.map((item, idx) =>
+                item === PAGINATION_ELLIPSIS ? (
+                  <span
+                    key={`ellipsis-${idx}`}
+                    className="news-block__pagination-ellipsis"
+                    aria-hidden
+                  >
+                    …
+                  </span>
+                ) : (
+                  <button
+                    key={item}
+                    type="button"
+                    className={`news-block__page-num ${item === page ? 'news-block__page-num--current' : ''}`}
+                    onClick={() => goToPage(item)}
+                    disabled={isExiting}
+                    aria-label={`Page ${item}`}
+                    aria-current={item === page ? 'page' : undefined}
+                  >
+                    {item}
+                  </button>
+                ),
+              )}
             </span>
           </div>
           <button

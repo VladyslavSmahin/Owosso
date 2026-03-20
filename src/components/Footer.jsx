@@ -23,10 +23,6 @@ export default function Footer() {
               Owosso, MI 48867<br />
               <a href="tel:+19897250599">(989) 725-0599</a>
             </address>
-            <div className="footer__links">
-              <Link to="/contact">Contact Us &raquo;</Link>
-              <Link to="/sitemap">Sitemap &raquo;</Link>
-            </div>
           </div>
           <nav className="footer__col footer__col--nav" aria-label="Footer navigation">
             <div className="footer__nav">
@@ -42,7 +38,10 @@ export default function Footer() {
             <p className="footer__credit">
               Website by <a href="https://webascender.com" target="_blank" rel="noopener noreferrer">Web Ascender</a>
             </p>
-            <Link to="/login" className="footer__login">Login</Link>
+            <div className="footer__links footer__links--copy">
+              <Link to="/contact">Contact Us &raquo;</Link>
+              <Link to="/sitemap">Sitemap &raquo;</Link>
+            </div>
           </div>
         </div>
       </div>

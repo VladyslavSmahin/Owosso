@@ -21,6 +21,9 @@
   --header-nav-height: 132px;
   --radius: 12px;
   --radius-sm: 8px;
+  /* Перескролл: сверху белый (как хедер), снизу синий (как футер) — раздельно, без заливки всего полотна */
+  --overscroll-header: #ffffff;
+  --overscroll-footer: #1e293b;
 }
 
 [data-theme="dark"] {
@@ -36,6 +39,8 @@
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
   --splash-bg: #0f172a;
+  --overscroll-header: #0f172a;
+  --overscroll-footer: #1e293b;
 }
 
 *,
@@ -46,6 +51,19 @@
 
 html {
   scroll-behavior: smooth;
+  min-height: 100%;
+  /* Без «резинового» скролла за пределы страницы (вверх/вниз) */
+  overscroll-behavior-y: none;
+  /* Вся «подложка» документа снизу — цвет футера (перескролл вниз) */
+  background-color: var(--overscroll-footer);
+  /* Сверху только полоса цвета хедера; остальное не трогаем — body даёт обычный фон контента */
+  background-image: linear-gradient(
+    var(--overscroll-header) 0%,
+    var(--overscroll-header) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% min(42vh, 420px);
+  background-position: top center;
 }
 
 body {
@@ -54,6 +72,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   color: var(--text);
+  overscroll-behavior-y: none;
   background: var(--bg);
   background-image: linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
   -webkit-font-smoothing: antialiased;
@@ -68,6 +87,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overscroll-behavior-y: none;
 }
 
 /* Main content container — общая ширина 1100px включительно с отступами */

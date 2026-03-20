@@ -29,7 +29,7 @@ export default function NewsletterForm() {
       <form onSubmit={handleSubmit} className="newsletter-form__inner">
         <div className="newsletter-form__head">
           <h2 id="newsletter-title" className="newsletter-form__title">
-            Subscribe to the City of Owosso Newsletter.
+            Subscribe to the City of Owosso Newsletter
           </h2>
         </div>
 

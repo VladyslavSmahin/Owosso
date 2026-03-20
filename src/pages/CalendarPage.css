@@ -30,6 +30,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  cursor: pointer;
 }
 
 .calendar-entry__date {
@@ -70,6 +71,14 @@
 .calendar-entry__title {
   font-size: 1.125rem;
   margin: 0 0 0.35rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.calendar-entry:hover .calendar-entry__title {
+  color: var(--accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .calendar-entry__meta {
