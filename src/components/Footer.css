@@ -1,6 +1,6 @@
 .footer {
   margin-top: auto;
-  padding: 1.25rem 0;
+  padding: 0.625rem 0 1.25rem;
   background: #1e293b;
   color: var(--block-dark-text);
 }
@@ -9,9 +9,10 @@
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--block-dark-text);
+  color: #ffffff;
   text-align: center;
-  margin: 0 0 1rem;
+  margin: 0 0 0.85rem;
+  line-height: 1.2;
 }
 
 .footer__row {

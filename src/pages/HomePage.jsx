@@ -67,11 +67,11 @@ export default function HomePage() {
       <section className="home-page__popular" aria-label="Popular links">
         <div className="app-container">
           <PopularLinks />
+          <CTAWidgets />
         </div>
       </section>
       <div className="home-page__wrap">
         <div className="app-container home-page__content">
-          <CTAWidgets />
           <NewsBlock />
         </div>
         <div className="home-page__map-zone">

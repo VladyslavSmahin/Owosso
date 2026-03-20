@@ -3,14 +3,13 @@
   padding: 0;
 }
 
-/* Герой: на всю высоту экрана и уходит под хедер/нав — картинка фоном для меню */
+/* Герой: обычный блок в потоке страницы (без sticky-скролла) */
 .home-page__hero {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 0;
   width: 100%;
   height: 100vh;
-  margin-top: calc(-1 * var(--header-nav-height, 132px));
+  margin-top: 0;
   overflow: hidden;
   margin-bottom: 0;
 }
