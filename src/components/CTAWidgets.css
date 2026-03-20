@@ -17,18 +17,23 @@
   border-radius: var(--radius-sm);
   text-decoration: none;
   color: var(--text);
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(203, 213, 225, 0.95);
-  box-shadow: none;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
   cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   text-align: left;
 }
 
 .cta-widget:hover {
-  background: #ffffff;
-  border-color: rgba(148, 163, 184, 1);
+  background: var(--accent-soft);
+  border-color: var(--accent);
   text-decoration: underline;
+  box-shadow: var(--shadow-lg);
 }
 
 .cta-widget__icon {
@@ -44,6 +49,13 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading);
+}
+
+/* Светлый accent в dark theme: белый глиф на нём теряется */
+[data-theme="dark"] .cta-widget__icon {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent);
 }
 
 .cta-widget__text {

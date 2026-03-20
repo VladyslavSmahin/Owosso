@@ -18,11 +18,12 @@
   padding: 0;
   display: flex;
   flex-wrap: nowrap;
-  align-items: stretch;
+  align-items: center;
   gap: 0;
   min-height: 48px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  /* Не ставить overflow-x: auto без overflow-y: hidden — иначе появляется scroll-container
+     и на Windows виден вертикальный скроллбар. Прокрутка не нужна: пункты делят ширину (flex 1 1 0). */
+  overflow: visible;
 }
 
 /* Каждый пункт на всю долю строки до соседнего */
@@ -74,7 +75,6 @@
 
 /* Сегмент на всю ширину ячейки; ховер на всю область до разделителя */
 .main-nav__item--has-dropdown {
-  align-self: stretch;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -88,9 +88,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
   width: 100%;
-  min-height: 0;
   padding: 0.75rem 0.35rem;
   text-align: center;
   background: transparent;

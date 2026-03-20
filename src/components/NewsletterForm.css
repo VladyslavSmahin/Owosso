@@ -46,7 +46,7 @@
 .newsletter-form__row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 6rem;
   align-items: start;
   margin-bottom: 1.75rem;
 }
@@ -54,13 +54,13 @@
 .newsletter-form__fields {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
 .newsletter-form__label {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.15rem;
 }
 
 .newsletter-form__label-text {
@@ -110,14 +110,15 @@
   font-size: 1rem;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 1rem;
+  /* как gap между лейблом и инпутом слева — первый чекбокс на уровне первого поля */
+  margin-bottom: 0.15rem;
   padding: 0;
 }
 
 .newsletter-form__checkboxes {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 14px;
 }
 
 .newsletter-form__checkbox-wrap {
@@ -218,6 +219,9 @@
   .newsletter-form__row {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+  .newsletter-form__checkboxes {
+    gap: 14px;
   }
 }
 

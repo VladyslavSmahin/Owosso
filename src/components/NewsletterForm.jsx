@@ -7,6 +7,7 @@ const INTERESTS = [
   { id: 'jobs', label: 'Job Openings' },
   { id: 'bids', label: 'Bid Postings' },
   { id: 'alerts', label: 'Emergency/Alerts' },
+  { id: 'events', label: 'City Events & Notices' },
 ];
 
 export default function NewsletterForm() {
